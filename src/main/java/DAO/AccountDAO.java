@@ -43,7 +43,7 @@ public class AccountDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, acc.getUsername());
-            preparedStatement.setString(1, acc.getPassword());
+            preparedStatement.setString(2, acc.getPassword());
 
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -63,6 +63,32 @@ public class AccountDAO {
         }
 
     return null;
+
+    }
+
+    public Boolean accountExists (int id){
+
+        Connection connection = ConnectionUtil.getConnection();
+
+        try {
+
+            String sql = "select * from account where account_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if(rs!=null){
+                return true;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+
 
     }
 

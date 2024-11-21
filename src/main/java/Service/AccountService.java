@@ -16,7 +16,7 @@ public class AccountService {
     }
 
     public Account addAccount(Account account){
-        if(account.getUsername().isBlank()||account.getPassword().length()>3){
+        if(account.getUsername().isBlank()||account.getPassword().length()<4||accountDAO.accountExists(account.getAccount_id())==false){
             return null;
         }
         return accountDAO.registerAccount(account);
