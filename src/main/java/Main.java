@@ -1,5 +1,7 @@
 import Controller.SocialMediaController;
 import Model.Message;
+import Model.Account;
+import Service.AccountService;
 import Service.MessageService;
 import io.javalin.Javalin;
 
@@ -12,12 +14,28 @@ public class Main {
         SocialMediaController controller = new SocialMediaController();
         Javalin app = controller.startAPI();
         app.start(8080);
+        MessageService msgg = new MessageService();
+        AccountService accservice =  new AccountService();
+        Account acc = new Account("joseph","james");
+      //  accservice.addAccount(acc);
+        Message msg = new Message(2,"hey hey now",1669947792);
         
+     /* 
+       
+       Account acc2 = new Account("jameson","williams");
+       
+       
+       accservice.addAccount(acc2);
+       
+       
+       Message msg2 = new Message(4,"hey yes now",1669947792);
 
-       // MessageService msgg = new MessageService();
-      //  Message msg = new Message(1,3,"hey hey now",1669947792);
+       
+       msgg.createMessage(msg2); */
+     //  msgg.createMessage(msg);
+       System.out.print(" THESE RESULTS"+ msgg.getAllMessagesById(2));
 
-      //  System.out.print(msgg.createMessage(msg));
+       app.close();
 
     }
 }

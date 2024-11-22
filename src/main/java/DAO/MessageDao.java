@@ -77,14 +77,15 @@ public class MessageDao {
         Connection connection = ConnectionUtil.getConnection();
 
         try {
-            String sql = "select * message where message_id = ?";
+            String sql = "select * from message where message_id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setInt(1, id);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.executeQuery();
 
+            ResultSet rs = preparedStatement.executeQuery();
             Message message;
 
             while(rs.next()){
@@ -114,7 +115,7 @@ public class MessageDao {
 
             preparedStatement.setInt(1, id);
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
 
 
@@ -143,6 +144,8 @@ public class MessageDao {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        
     }
 
     public List<Message> getMessagesById (int id){
@@ -153,7 +156,7 @@ public class MessageDao {
 
         try {
 
-            String sql = "select * from messages where posted_by = ?";
+            String sql = "select * from message where posted_by = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
