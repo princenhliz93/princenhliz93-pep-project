@@ -110,6 +110,7 @@ public class MessageDao {
         Connection connection = ConnectionUtil.getConnection();
 
         try {
+            
             String sql = "delete from message where message_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -125,7 +126,7 @@ public class MessageDao {
 
     }
 
-    public void updateMessageById (Message message,int id){
+    public void updateMessageById (String message,int id){
         Connection connection = ConnectionUtil.getConnection();
 
         try {
@@ -135,7 +136,7 @@ public class MessageDao {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 
-            preparedStatement.setString(1,message.getMessage_text());
+            preparedStatement.setString(1,message);
             preparedStatement.setInt(2,id);
 
             preparedStatement.executeUpdate();

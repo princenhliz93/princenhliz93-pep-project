@@ -40,21 +40,19 @@ public class SocialMediaController {
         app.get("/messages/{message_id}",this::retrieveMessagesByIdHandler);
         app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
         app.get("/accounts/{account_id}/messages", this::retrieveAllMessagesByIdHandler);
+        app.delete("/messages/{message_id}", this::deleteMessageByIdHandler);
        // app.start();
 
         return app;
     }
 
-    /**
-     * This is an example handler for an example endpoint.
-     * @param context The Javalin Context object manages information about both the HTTP request and response.
-     */
+    
     private void postAccountHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper  = new ObjectMapper();
         Account account = mapper.readValue(context.body(), Account.class);
         Account addedAccount = accountService.addAccount(account);
         if(addedAccount!=null){
-            context.json(mapper.writeValueAsString(addedAccount));
+            context.json(addedAccount);
         }else{
             context.status(400);
         }
@@ -105,9 +103,9 @@ public class SocialMediaController {
     public void updateMessageByIdHandler (Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         Message message = mapper.readValue(context.body(), Message.class);
-        String newText = (context.pathParam("message_text"));
+       // String newText = (context.pathParam("messages"));
         int message_id = Integer.parseInt(context.pathParam("message_id"));
-        Message updatedMessage = messageService.updateMessageById(message,message_id);
+        Message updatedMessage = messageService.updateMessageById(message.getMessage_text(),message_id);
 
     
         if(updatedMessage!= null){
@@ -119,10 +117,22 @@ public class SocialMediaController {
     }
 
     public void retrieveAllMessagesByIdHandler(Context context){
-        int id = Integer.parseInt(context.pathParam("posted_by"));
+        int id = Integer.parseInt(context.pathParam("account_id"));
         List<Message> messages = messageService.getAllMessagesById(id);
         context.json(messages);
 
+    }
+
+    public void deleteMessageByIdHandler (Context context){
+        int message_id = Integer.parseInt(context.pathParam("message_id"));
+        Message message = messageService.getMessageById(message_id);
+        
+        if(message != null){
+            context.json(message);
+        }else{
+            context.status(200);
+        }
+        
     }
 
 

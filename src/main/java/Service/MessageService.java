@@ -40,17 +40,25 @@ public class MessageService {
         return messageDao.getMessageById(id);
     }
 
-    public void deleteMessageById (int id){
+    public Message deleteMessageById (int id){
 
-        messageDao.deleteMessageById(id);
+        Message msg = messageDao.getMessageById(id);
+
+        if(msg != null){
+            messageDao.deleteMessageById(id);
+            return msg;
+        }
+        
+        return null;
+        
 
     }
 
-    public Message updateMessageById (Message new_message,int id){
+    public Message updateMessageById (String new_message,int id){
 
        
 
-        if(new_message.getMessage_text().length()!=0 &&new_message.getMessage_text().length()<256||messageDao.getMessageById(id)!=null){
+        if(new_message.length()!=0 &&new_message.length()<256&&messageDao.getMessageById(id)!=null){
            messageDao.updateMessageById(new_message,id);
            return getMessageById(id);
         }
