@@ -5,6 +5,14 @@ import Util.ConnectionUtil;
 
 import java.sql.*;
 
+/**
+     * Registers a new account in the database.
+     * - Inserts the provided username and password into the account table.
+     * - Retrieves the auto-generated account ID and returns a new Account object.
+     * 
+     * @param acc The Account object containing the username and password to be registered.
+     * @return The newly created Account object with the generated account ID, or null if an error occurs.
+     */
 public class AccountDAO {
 
     public Account registerAccount(Account acc){
@@ -34,6 +42,13 @@ public class AccountDAO {
 
     }
 
+    /**
+     * Authenticates a user by validating the username and password.
+     * - Searches the account table for a record matching the provided username and password.
+     * 
+     * @param acc The Account object containing the login credentials.
+     * @return The authenticated Account object if found; otherwise, returns null.
+     */
     public Account login (Account acc){
         Connection connection = ConnectionUtil.getConnection();
 
@@ -66,6 +81,13 @@ public class AccountDAO {
 
     }
 
+   /**
+     * Checks if an account exists in the database by account ID.
+     * - Queries the account table for a record with the specified ID.
+     * 
+     * @param id The ID of the account to check.
+     * @return True if the account exists; otherwise, false.
+     */
     public Boolean accountExists (int id){
 
         Connection connection = ConnectionUtil.getConnection();

@@ -10,7 +10,15 @@ import java.util.List;
 
 public class MessageDao {
 
-    public Message submitMessage(Message message){
+    /**
+     * Inserts a new message into the database.
+     * - Saves the message details (posted_by, message_text, time_posted_epoch) in the message table.
+     * - Retrieves the auto-generated message ID and returns a new Message object.
+     * 
+     * @param message The Message object containing the details of the message to be created.
+     * @return The newly created Message object with the generated message ID, or null if an error occurs.
+     */
+    public Message createMessage(Message message){
 
         Connection connection = ConnectionUtil.getConnection();
 
@@ -41,6 +49,11 @@ public class MessageDao {
 
     }
 
+    /**
+     * Retrieves all messages from the database.
+     * 
+     * @return A list of all messages stored in the database.
+     */
     public List<Message> getAllMessages(){
         Connection connection = ConnectionUtil.getConnection();
 
@@ -72,6 +85,12 @@ public class MessageDao {
         return messages;
     }
 
+    /**
+     * Retrieves a message from the database by its ID.
+     * 
+     * @param id The ID of the message to retrieve.
+     * @return The Message object if found; otherwise, returns null.
+     */
     public Message getMessageById(int id){
 
         Connection connection = ConnectionUtil.getConnection();
@@ -105,6 +124,11 @@ public class MessageDao {
 
     }
 
+    /**
+     * Deletes a message from the database by its ID.
+     * 
+     * @param id The ID of the message to delete.
+     */
     public void deleteMessageById (int id){
 
         Connection connection = ConnectionUtil.getConnection();
@@ -126,6 +150,12 @@ public class MessageDao {
 
     }
 
+    /**
+     * Updates the text of a message in the database.
+     * 
+     * @param message The new message text to replace the existing one.
+     * @param id The ID of the message to be updated.
+     */
     public void updateMessageById (String message,int id){
         Connection connection = ConnectionUtil.getConnection();
 
@@ -149,6 +179,12 @@ public class MessageDao {
         
     }
 
+    /**
+     * Retrieves all messages posted by a specific user.
+     * 
+     * @param id The ID of the user whose messages are to be retrieved.
+     * @return A list of messages posted by the specified user.
+     */
     public List<Message> getMessagesById (int id){
 
         Connection connection = ConnectionUtil.getConnection();
